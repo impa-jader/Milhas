@@ -1,12 +1,18 @@
-
 class Matriz:
     def __init__(self, matrizinha): # matrizinha(nxm) é uma lista composta por n listas, listas estas sendo vetores linha de tamanho m
         self.l=matrizinha
         self.n= len(matrizinha)
         self.m=len(matrizinha[0])
     
-    def prod_esq(self,m):
-        r=[[[0]*self.m]*m.n]
+    def prod_esq(self,mtr):
+        r=[[0]*self.m]*mtr.n 
+        for k in range(len(r)): 
+            for q in range(len(r[k])):
+                coiso=0
+                for i in range(self.n):
+                    coiso+= mtr.l[k][i]*self.l[i][q]
+                r[k][q]=coiso
+        return Matriz(r)
         
     def troca_linha(self,i: int,j: int):
         r=self.l[:]
@@ -25,11 +31,12 @@ class Matriz:
             
         }
         Palu[A]=Matriz(self.l)
-        """ Para achar P, eu utilizarei algo chamado pivotamento parcial, não sei se funciona nem se funciona, mas tenho fé"""
+        """ Para achar P eu utilizarei algo chamado pivotamento parcial, não sei se funciona nem como funciona, mas tenho fé"""
         
-m=Matriz([[1,5,3],[9,4,5],[3,1,7]])
-print(m.l)
-print(m.troca_linha(0,2).l)
-print(m.elementar(1,1,-9,0).l)
-
-print ([[0]*2]*3)
+A= Matriz([[1,2],[3,0]])
+B= Matriz([[2,3],[4,5]])
+print(A.prod_esq(B).l)
+M=Matriz([[1,5,3],[9,4,5],[3,1,7]])
+print(M.l)
+print(M.troca_linha(0,2).l)
+print(M.elementar(1,1,-9,0).l)
