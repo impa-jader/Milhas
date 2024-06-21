@@ -36,18 +36,20 @@ class Matriz:
                 if k==i:
                     if q==j:
                         lin.append(1)
-                    else lin.append(0)
+                    else: 
+                        lin.append(0)
                 if k==j:
                     if q==i:
                         lin.append(1)
-                    else lin.append(0)
+                    else: 
+                        lin.append(0)
                 else:
                     if k==q:
                         lin.appenf(1)
                     else:
                         lin.append(0)
             r.append(lin)
-        return r
+        return Matriz(r)
 
 
     def PALU(self):
@@ -55,7 +57,7 @@ class Matriz:
         Palu={
             
         }
-        Palu[A]=Matriz(self.l)
+        Palu['A']=Matriz(self.l)
         """ Para achar P eu utilizarei algo chamado pivotamento parcial, não sei se funciona nem como funciona, mas tenho fé"""
         
         for k in range(self.m):
@@ -66,14 +68,7 @@ class Matriz:
                     big= U[q][k]
                     big_line=q
             U=Matriz(U).troca_linha(k,big_line).l
-            contador_P[k]= big_line
-            #incompleto
-            
-        
-A= Matriz([[1,2],[3,0]])
-B= Matriz([[2,3],[4,5]])
-print(A.prod_esq(B).l)
-M=Matriz([[1,5,3],[9,4,5],[3,1,7]])
-print(M.l)
-print(M.troca_linha(0,2).l)
-print(M.elementar(1,1,-9,0).l)
+            if Palu['P'] is None:
+                Palu['P']= U.mtr_troca(k,big_line)
+            else:
+                 Palu['P']= Palu['P'].prod_esq(mtr_troca(k,big_line))
