@@ -5,15 +5,17 @@ class Matriz:
         self.m=len(matrizinha[0])
     
     def prod_esq(self,mtr):
-        r=[[0]*self.m]*mtr.n 
-        for k in range(len(r)): 
-            for q in range(len(r[k])):
+        r=[]
+        for k in range(mtr.n):
+            h=[] 
+            for q in range(self.m):
                 coiso=0
                 for i in range(self.n):
                     coiso+= mtr.l[k][i]*self.l[i][q]
-                r[k][q]=coiso
+                h.append(coiso)
+            r.append(h)
         return Matriz(r)
-        
+        # errado
     def troca_linha(self,i: int,j: int):
         r=self.l[:]
         r[i]=self.l[j]
@@ -32,6 +34,18 @@ class Matriz:
         }
         Palu[A]=Matriz(self.l)
         """ Para achar P eu utilizarei algo chamado pivotamento parcial, não sei se funciona nem como funciona, mas tenho fé"""
+        contador_P={}
+        for k in range(self.m):
+            big= U[0][k] 
+            big_line=0 
+            for q in range (self.n):
+                if U[q][k]>big:
+                    big= U[q][k]
+                    big_line=q
+            U=Matriz(U).troca_linha(k,big_line).l
+            contador_P[k]= big_line
+            #incompleto
+            
         
 A= Matriz([[1,2],[3,0]])
 B= Matriz([[2,3],[4,5]])
