@@ -1,6 +1,7 @@
 
 class Matriz:
-    def __init__(self, matrizinha): # matrizinha(nxm) é uma lista composta por n listas, listas estas sendo vetores linha de tamanho m
+    def __init__(self, matrizinha): 
+    """matrizinha(nxm) é uma lista composta por n listas, listas estas sendo vetores linha de tamanho m"""
         self.l=matrizinha
         self.n= len(matrizinha)
         self.m=len(matrizinha[0])
@@ -15,6 +16,7 @@ class Matriz:
         for k in range(self.m):
             r[i][k]= r[i][k]*a_1 +r[j][k]*a_2
         return Matriz(r)
+        
      
 m=Matriz([[1,5,3],[9,4,5],[3,1,7]])
 print(m.l)
