@@ -34,19 +34,19 @@ class Matriz:
         for k in range(self.n):
             lin=[]
             for q in range(self.n):
-                if k==i:
-                    if q==j:
+                if q==i:
+                    if k==j:
                         lin.append(1)
                     else: 
                         lin.append(0)
-                if k==j:
-                    if q==i:
+                if q==j:
+                    if k==i:
                         lin.append(1)
                     else: 
                         lin.append(0)
                 else:
                     if k==q:
-                        lin.appenf(1)
+                        lin.append(1)
                     else:
                         lin.append(0)
             r.append(lin)
@@ -56,9 +56,13 @@ class Matriz:
     def PALU(self):
         U= self.l[:]
         Palu={
+            'A': self,
+            'P': None,
+            'L': None,
+            'U': None
             
         }
-        Palu['A']=Matriz(self.l)
+        
         """ Para achar P eu utilizarei algo chamado pivotamento parcial, não sei se funciona nem como funciona, mas tenho fé"""
         
         for k in range(self.m):
@@ -71,9 +75,9 @@ class Matriz:
                     big_line=q
             U=Matriz(U).troca_linha(k,big_line).l
             if Palu['P'] is None:
-                Palu['P']= U.mtr_troca(k,big_line)
+                Palu['P']= Matriz(U).mtr_troca(k,big_line)
             else:
-                 Palu['P']= Palu['P'].prod_esq(mtr_troca(k,big_line))
+                 Palu['P']= Palu['P'].prod_esq(Matriz(U).mtr_troca(k,big_line))
             #
         L_list=[]
         for k in range(self.m):
@@ -81,7 +85,7 @@ class Matriz:
                 s=0
                 if q==k:
                     s=q
-                    U.elementar(U.l[q][k]**-1,q,0,0)
+                    Matriz(U).elementar(Matriz(U).l[q][k]**-1,q,0,0)
                 elif s>q:
                     U.elementar(1,q,-1*U.l[q][k],s)
                 
@@ -90,13 +94,15 @@ class Matriz:
         
         
         
-        return Palu
+        return f"Decomposição LU de {self.l}\n A={Palu['A'].l} \n  P={Palu['P'].l} \n L={Palu['L']} \n U={Palu['U']}"
             
         
 A= Matriz([[1,2],[3,0]])
 B= Matriz([[2,3],[4,5]])
+print (A.PALU())
 print(A.prod_esq(B).l)
 M=Matriz([[1,5,3],[9,4,5],[3,1,7]])
 print(M.l)
+print(A.mtr_troca(0,1).l)
 print(M.troca_linha(0,2).l)
 print(M.elementar(1,1,-9,0).l)
