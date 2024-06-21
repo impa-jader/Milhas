@@ -21,6 +21,7 @@ class Matriz:
         r[i]=self.l[j]
         r[j]=self.l[i]
         return Matriz(r)
+
     def elementar(self,a_1,i,a_2,j):# L_i<- L_i*a_1+L_j*a_2
         r= self.l[:]
         for k in range(self.m):
@@ -64,6 +65,7 @@ class Matriz:
             big= U[0][k] 
             big_line=0 
             for q in range (self.n):
+                
                 if U[q][k]>big:
                     big= U[q][k]
                     big_line=q
@@ -72,3 +74,29 @@ class Matriz:
                 Palu['P']= U.mtr_troca(k,big_line)
             else:
                  Palu['P']= Palu['P'].prod_esq(mtr_troca(k,big_line))
+            #
+        L_list=[]
+        for k in range(self.m):
+            for q in range(self.n):
+                s=0
+                if q==k:
+                    s=q
+                    U.elementar(U.l[q][k]**-1,q,0,0)
+                elif s>q:
+                    U.elementar(1,q,-1*U.l[q][k],s)
+                
+
+        
+        
+        
+        
+        return Palu
+            
+        
+A= Matriz([[1,2],[3,0]])
+B= Matriz([[2,3],[4,5]])
+print(A.prod_esq(B).l)
+M=Matriz([[1,5,3],[9,4,5],[3,1,7]])
+print(M.l)
+print(M.troca_linha(0,2).l)
+print(M.elementar(1,1,-9,0).l)
