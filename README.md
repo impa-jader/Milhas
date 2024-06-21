@@ -15,7 +15,7 @@ class Matriz:
                 h.append(coiso)
             r.append(h)
         return Matriz(r)
-        # errado
+        
     def troca_linha(self,i: int,j: int):
         r=self.l[:]
         r[i]=self.l[j]
@@ -27,6 +27,29 @@ class Matriz:
             r[i][k]= r[i][k]*a_1 +r[j][k]*a_2
         return Matriz(r)
      
+    "fazer funções que retornam matrizes inversas as elementares"
+    def mtr_troca(self,i,j):
+        r=[]
+        for k in range(self.n):
+            lin=[]
+            for q in range(self.n):
+                if k==i:
+                    if q==j:
+                        lin.append(1)
+                    else lin.append(0)
+                if k==j:
+                    if q==i:
+                        lin.append(1)
+                    else lin.append(0)
+                else:
+                    if k==q:
+                        lin.appenf(1)
+                    else:
+                        lin.append(0)
+            r.append(lin)
+        return r
+
+
     def PALU(self):
         U= self.l[:]
         Palu={
@@ -34,7 +57,7 @@ class Matriz:
         }
         Palu[A]=Matriz(self.l)
         """ Para achar P eu utilizarei algo chamado pivotamento parcial, não sei se funciona nem como funciona, mas tenho fé"""
-        contador_P={}
+        
         for k in range(self.m):
             big= U[0][k] 
             big_line=0 
